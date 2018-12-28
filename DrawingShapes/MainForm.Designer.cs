@@ -39,6 +39,7 @@
             this.DrawingPannel.TabIndex = 0;
             this.DrawingPannel.Click += new System.EventHandler(this.DrawingPannel_Click);
             this.DrawingPannel.Paint += new System.Windows.Forms.PaintEventHandler(this.DrawingPannel_Paint);
+            this.DrawingPannel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DrawingPannel_MouseClick);
             // 
             // MainForm
             // 
@@ -48,6 +49,7 @@
             this.Controls.Add(this.DrawingPannel);
             this.Name = "MainForm";
             this.Text = "Form1";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MainForm_KeyPress);
             this.ResumeLayout(false);
 

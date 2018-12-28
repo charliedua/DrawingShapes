@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DrawingShapes
@@ -14,20 +9,19 @@ namespace DrawingShapes
     {
         private Type shapeType = typeof(Circle);
         private List<Shape> shapes;
+        private Graphics DrawingArea;
+        private Color CurrentBackgroundColor = Color.FromArgb(240, 240, 240);
 
         public MainForm()
         {
             InitializeComponent();
-            shapes = new List<Shape>
-            {
-                new Rectangle(0, 0, 10, 20, Color.Green),
-                new Circle(100, 100, 50, Color.Black),
-                new Square(0, 40, 40, Color.Pink)
-            };
+            DrawingArea = DrawingPannel.CreateGraphics();
+            shapes = new List<Shape>();
         }
 
         public void DrawAllShapes(Graphics graphics)
         {
+            DrawingArea.Clear(CurrentBackgroundColor);
             foreach (Shape shape in shapes)
             {
                 shape.Draw(graphics);
@@ -36,15 +30,11 @@ namespace DrawingShapes
 
         private void DrawingPannel_Paint(object sender, PaintEventArgs e)
         {
-            DrawAllShapes(DrawingPannel.CreateGraphics());
+            DrawAllShapes(DrawingArea);
         }
 
         private void DrawingPannel_Click(object sender, EventArgs e)
         {
-            shapes.Add((Shape)Activator.CreateInstance(
-                shapeType, (e as MouseEventArgs).X, (e as MouseEventArgs).Y));
-            Graphics graphics = DrawingPannel.CreateGraphics();
-            DrawAllShapes(graphics);
         }
 
         private void MainForm_KeyPress(object sender, KeyPressEventArgs e)
@@ -67,14 +57,53 @@ namespace DrawingShapes
                     break;
 
                 case ' ':
-                    Graphics graphics = DrawingPannel.CreateGraphics();
+                    Graphics graphics = DrawingArea;
                     Random random = new Random();
                     graphics.Clear(Color.FromArgb(random.Next(255), random.Next(255), random.Next(255)));
-                    DrawAllShapes(graphics);
                     break;
 
                 default:
+                    if (true)
+                    {
+                    }
                     break;
+            }
+        }
+
+        private void DrawingPannel_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                foreach (var shape in shapes)
+                {
+                    if (shape.Contains(e.Location))
+                    {
+                        shape.Selected = !shape.Selected;
+                    }
+                }
+            }
+            else if (e.Button == MouseButtons.Left)
+            {
+                shapes.Add((Shape)Activator.CreateInstance(
+                shapeType, (e as MouseEventArgs).X, (e as MouseEventArgs).Y));
+            }
+            DrawAllShapes(DrawingArea);
+        }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Delete)
+            {
+                var newshapes = new List<Shape>();
+                foreach (var shape in shapes)
+                {
+                    if (!shape.Selected)
+                    {
+                        newshapes.Add(shape);
+                    }
+                }
+                shapes = newshapes;
+                DrawAllShapes(DrawingArea);
             }
         }
     }

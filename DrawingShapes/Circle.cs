@@ -17,6 +17,17 @@ namespace DrawingShapes
         public override void Draw(Graphics graphics)
         {
             graphics.FillEllipse(new SolidBrush(Color), X, Y, Radius, Radius);
+            base.Draw(graphics);
+        }
+
+        public override void DrawOutline(Graphics graphics)
+        {
+            graphics.DrawEllipse(new Pen(Color), X - 2, Y - 2, Radius + 4, Radius + 4);
+        }
+
+        public override bool Contains(Point location)
+        {
+            return new RectangleF(X, Y, Radius, Radius).Contains(location);
         }
     }
 }

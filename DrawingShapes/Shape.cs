@@ -11,6 +11,8 @@ namespace DrawingShapes
     {
         public Color Color { get; set; }
 
+        public bool Selected { get; set; }
+
         protected Shape(int x, int y, Color color)
         {
             X = x;
@@ -21,6 +23,16 @@ namespace DrawingShapes
         public int X { get; set; }
         public int Y { get; set; }
 
-        public abstract void Draw(Graphics graphics);
+        public virtual void Draw(Graphics graphics)
+        {
+            if (Selected)
+            {
+                DrawOutline(graphics);
+            }
+        }
+
+        public abstract void DrawOutline(Graphics graphics);
+
+        public abstract bool Contains(Point location);
     }
 }
