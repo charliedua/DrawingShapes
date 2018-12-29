@@ -97,14 +97,54 @@ namespace DrawingShapes
                 var newshapes = new List<Shape>();
                 foreach (var shape in shapes)
                 {
-                    if (!shape.Selected)
+                    if (shape.Selected)
                     {
                         newshapes.Add(shape);
                     }
                 }
                 shapes = newshapes;
-                DrawAllShapes(DrawingArea);
             }
+            else if (e.KeyData == Keys.Left)
+            {
+                foreach (var shape in shapes)
+                {
+                    if (shape.Selected)
+                    {
+                        shape.X -= 1;
+                    }
+                }
+            }
+            else if (e.KeyData == Keys.Right)
+            {
+                foreach (var shape in shapes)
+                {
+                    if (shape.Selected)
+                    {
+                        shape.X += 1;
+                    }
+                }
+            }
+            else if (e.KeyData == Keys.Up)
+            {
+                foreach (var shape in shapes)
+                {
+                    if (shape.Selected)
+                    {
+                        shape.Y -= 1;
+                    }
+                }
+            }
+            else if (e.KeyData == Keys.Down)
+            {
+                foreach (var shape in shapes)
+                {
+                    if (shape.Selected)
+                    {
+                        shape.Y += 1;
+                    }
+                }
+            }
+            DrawAllShapes(DrawingArea);
         }
     }
 }
