@@ -63,9 +63,6 @@ namespace DrawingShapes
                     break;
 
                 default:
-                    if (true)
-                    {
-                    }
                     break;
             }
         }
@@ -92,6 +89,7 @@ namespace DrawingShapes
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
+            const int MAGNITUDE_TO_MOVE = 5;
             if (e.KeyData == Keys.Delete)
             {
                 var newshapes = new List<Shape>();
@@ -104,43 +102,43 @@ namespace DrawingShapes
                 }
                 shapes = newshapes;
             }
-            else if (e.KeyData == Keys.Left)
+            if (e.KeyData == Keys.Left)
             {
                 foreach (var shape in shapes)
                 {
                     if (shape.Selected)
                     {
-                        shape.X -= 1;
+                        shape.X -= MAGNITUDE_TO_MOVE;
                     }
                 }
             }
-            else if (e.KeyData == Keys.Right)
+            if (e.KeyData == Keys.Right)
             {
                 foreach (var shape in shapes)
                 {
                     if (shape.Selected)
                     {
-                        shape.X += 1;
+                        shape.X += MAGNITUDE_TO_MOVE;
                     }
                 }
             }
-            else if (e.KeyData == Keys.Up)
+            if (e.KeyData == Keys.Up)
             {
                 foreach (var shape in shapes)
                 {
                     if (shape.Selected)
                     {
-                        shape.Y -= 1;
+                        shape.Y -= MAGNITUDE_TO_MOVE;
                     }
                 }
             }
-            else if (e.KeyData == Keys.Down)
+            if (e.KeyData == Keys.Down)
             {
                 foreach (var shape in shapes)
                 {
                     if (shape.Selected)
                     {
-                        shape.Y += 1;
+                        shape.Y += MAGNITUDE_TO_MOVE;
                     }
                 }
             }
