@@ -95,7 +95,7 @@ namespace DrawingShapes
                 var newshapes = new List<Shape>();
                 foreach (var shape in shapes)
                 {
-                    if (shape.Selected)
+                    if (!shape.Selected)
                     {
                         newshapes.Add(shape);
                     }
@@ -142,6 +142,13 @@ namespace DrawingShapes
                     }
                 }
             }
+            if (e.KeyData == Keys.PageUp)
+            {
+            }
+            else if (e.KeyData == Keys.PageDown)
+            {
+            }
+
             DrawAllShapes(DrawingArea);
         }
     }
